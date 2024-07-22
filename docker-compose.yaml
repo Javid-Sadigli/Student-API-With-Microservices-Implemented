@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  student-adp:
+    image: student-adp
+    container_name: student-adp
+    build:
+      context: ./student-adp
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/studentapi
+      SPRING_DATASOURCE_USERNAME: testuser
+      SPRING_DATASOURCE_PASSWORD: testpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+  
+  student-ms: 
+    image: student-ms
+    container_name: student-ms
+    build:
+      context: ./student-ms
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - student-adp
+      
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: studentapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: pgadmin
+      environment:
+        PGADMIN_DEFAULT_EMAIL: admin@example.com
+        PGADMIN_DEFAULT_PASSWORD: admin
+      ports:
+        - "2000:80"
+  
+
+volumes:
+  postgres_data:
