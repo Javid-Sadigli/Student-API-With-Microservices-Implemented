@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.student_ms.api.entity.StudentAPIEntity;
 
-@FeignClient(name = "adp-student-client", url = "http://student-adp:8080/api/student")
+@FeignClient(name = "adp-student-client", url = "${feign.client.url}")
 public interface StudentAPI 
 {
     @GetMapping("/{id}") public StudentAPIEntity getStudentById(@PathVariable("id") Long id); 
