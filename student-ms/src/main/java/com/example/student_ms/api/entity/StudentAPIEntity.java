@@ -34,6 +34,12 @@ public class StudentAPIEntity
         this.name = name;
         this.gender = gender;
     }
+
+    public StudentAPIEntity(String name, String gender) 
+    {
+        this.name = name;
+        this.gender = gender;
+    }
     
     public Long getId() {
         return this.id;

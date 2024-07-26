@@ -1,11 +1,15 @@
 package com.example.student_ms.api;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +32,7 @@ public class StudentAPIIntegrationTests
     private StudentAPI studentAPI; 
 
     @Test
-    @DisplayName("Testing if StudentAPI can GET a student by id.")
+    @DisplayName("Testing if StudentAPI can READ a student by id.")
     public void shouldGetStudentById(WireMockRuntimeInfo wireMockRuntimeInfo)
     {
         Long studentId = 1L; 
@@ -51,7 +55,7 @@ public class StudentAPIIntegrationTests
             )
         ));
 
-        StudentAPIEntity checkStudentEntity = studentAPI.getStudentById(studentId); 
+        StudentAPIEntity checkStudentEntity = this.studentAPI.getStudentById(studentId); 
 
         assertNotNull(checkStudentEntity);
         assertEquals(studentId, checkStudentEntity.getId());
@@ -59,6 +63,45 @@ public class StudentAPIIntegrationTests
         assertEquals(studentGender, checkStudentEntity.getGender());
         assertEquals(studentEmail, checkStudentEntity.getEmail());
         assertEquals(studentPassword, checkStudentEntity.getPassword());
+    }
+
+    @Test
+    @DisplayName("Testing if StudentAPI can CREATE a student.")
+    public void shouldSaveStudent(WireMockRuntimeInfo wireMockRuntimeInfo)
+    {
+        Long studentId = 1L; 
+        String studentName = "Javid Sadigli", studentGender = "male";
+
+        stubFor(post(urlEqualTo("/api/student")).withRequestBody(equalToJson(String.format("""
+            {
+                "name": "%s",
+                "gender": "%s"
+            }        
+        """, studentName, studentGender))).withHeader(
+            "Content-Type", equalTo("application/json")
+        ).willReturn(
+            aResponse().withStatus(201).withHeader("Content-Type", "application/json").withBody(
+                String.format("""
+                    {
+                        "id": %d,
+                        "name": "%s",
+                        "gender": "%s",
+                        "email": null,
+                        "password": null
+                    }
+                """, studentId, studentName, studentGender)
+            )
+        ));
+
+        StudentAPIEntity requestBody = new StudentAPIEntity(studentName, studentGender);
+        StudentAPIEntity checkStudentEntity = this.studentAPI.saveStudent(requestBody); 
+
+        assertNotNull(checkStudentEntity);
+        assertEquals(studentId, checkStudentEntity.getId());
+        assertEquals(studentName, checkStudentEntity.getName());
+        assertEquals(studentGender, checkStudentEntity.getGender());
+        assertNull(checkStudentEntity.getEmail());
+        assertNull(checkStudentEntity.getPassword());
     }
 
 }
