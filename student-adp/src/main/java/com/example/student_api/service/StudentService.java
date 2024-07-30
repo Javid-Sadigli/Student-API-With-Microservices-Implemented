@@ -35,7 +35,7 @@ public class StudentService
     
     public StudentDTO saveStudent(StudentDTO studentDTO, Long studentId)
     {
-        if (studentId == null) return null;
+        if (studentId == null || studentDTO == null) return null;
         StudentEntity studentEntity = this.studentMapper.toStudentEntity(studentDTO, studentId);
         StudentEntity saved = studentRepository.save(studentEntity);
         return this.studentMapper.toStudentDTO(saved);
@@ -43,6 +43,7 @@ public class StudentService
 
     public void deleteStudentById(Long id)
     {
+        if(id == null) return;
         studentRepository.deleteById(id);
     }
 }

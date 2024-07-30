@@ -21,6 +21,7 @@ public class StudentService
 
     public StudentDTO getStudentById(Long studentId)
     {
+        if(studentId == null) return null; 
         StudentAPIEntity studentAPIEntity = this.studentAPI.getStudentById(studentId);
         return this.studentMapper.toStudentDTO(studentAPIEntity);
     }
@@ -34,6 +35,7 @@ public class StudentService
 
     public StudentDTO saveStudent(StudentDTO student, Long id)
     {
+        if(id == null || student == null) return null; 
         StudentAPIEntity studentAPIEntity = this.studentMapper.toStudentAPIEntity(student);
         StudentAPIEntity savedStudent = this.studentAPI.updateStudentById(id, studentAPIEntity); 
         return this.studentMapper.toStudentDTO(savedStudent);
@@ -41,6 +43,7 @@ public class StudentService
 
     public void deleteStudentById(Long studentId)
     {
+        if(studentId == null) return;
         this.studentAPI.deleteStudentById(studentId);
     }
 

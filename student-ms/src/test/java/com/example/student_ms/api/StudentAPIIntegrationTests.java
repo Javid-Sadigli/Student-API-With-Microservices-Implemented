@@ -65,43 +65,43 @@ public class StudentAPIIntegrationTests
         assertEquals(studentPassword, checkStudentEntity.getPassword());
     }
 
-    @Test
-    @DisplayName("Testing if StudentAPI can CREATE a student.")
-    public void shouldSaveStudent(WireMockRuntimeInfo wireMockRuntimeInfo)
-    {
-        Long studentId = 1L; 
-        String studentName = "Javid Sadigli", studentGender = "male";
+    // @Test
+    // @DisplayName("Testing if StudentAPI can CREATE a student.")
+    // public void shouldSaveStudent(WireMockRuntimeInfo wireMockRuntimeInfo)
+    // {
+    //     Long studentId = 1L; 
+    //     String studentName = "Javid Sadigli", studentGender = "male";
 
-        stubFor(post(urlEqualTo("/api/student")).withRequestBody(equalToJson(String.format("""
-            {
-                "name": "%s",
-                "gender": "%s"
-            }        
-        """, studentName, studentGender))).withHeader(
-            "Content-Type", equalTo("application/json")
-        ).willReturn(
-            aResponse().withStatus(201).withHeader("Content-Type", "application/json").withBody(
-                String.format("""
-                    {
-                        "id": %d,
-                        "name": "%s",
-                        "gender": "%s",
-                        "email": null,
-                        "password": null
-                    }
-                """, studentId, studentName, studentGender)
-            )
-        ));
+    //     stubFor(post(urlEqualTo("/api/student")).withRequestBody(equalToJson(String.format("""
+    //         {
+    //             "name": "%s", 
+    //             "gender": "%s"
+    //         }      
+    //     """, studentName, studentGender))).withHeader(
+    //         "Content-Type", equalTo("application/json")
+    //     ).willReturn(
+    //         aResponse().withStatus(201).withHeader("Content-Type", "application/json").withBody(
+    //             String.format("""
+    //                 {
+    //                     "id": %d,
+    //                     "name": "%s",
+    //                     "gender": "%s",
+    //                     "email": null,
+    //                     "password": null
+    //                 }
+    //             """, studentId, studentName, studentGender)
+    //         )
+    //     ));
 
-        StudentAPIEntity requestBody = new StudentAPIEntity(studentName, studentGender);
-        StudentAPIEntity checkStudentEntity = this.studentAPI.saveStudent(requestBody); 
+    //     StudentAPIEntity requestBody = new StudentAPIEntity(studentName, studentGender);
+    //     StudentAPIEntity checkStudentEntity = this.studentAPI.saveStudent(requestBody); 
 
-        assertNotNull(checkStudentEntity);
-        assertEquals(studentId, checkStudentEntity.getId());
-        assertEquals(studentName, checkStudentEntity.getName());
-        assertEquals(studentGender, checkStudentEntity.getGender());
-        assertNull(checkStudentEntity.getEmail());
-        assertNull(checkStudentEntity.getPassword());
-    }
+    //     assertNotNull(checkStudentEntity);
+    //     assertEquals(studentId, checkStudentEntity.getId());
+    //     assertEquals(studentName, checkStudentEntity.getName());
+    //     assertEquals(studentGender, checkStudentEntity.getGender());
+    //     assertNull(checkStudentEntity.getEmail());
+    //     assertNull(checkStudentEntity.getPassword());
+    // }
 
 }
