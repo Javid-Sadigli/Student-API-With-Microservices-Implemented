@@ -22,8 +22,8 @@ public class StudentMapperTests
     }
 
     @Test
-    @DisplayName("Testing if studentMapper is converting studentEntity to studentDTO")
-    public void shouldConvertStudentEntityToStudentDTO()
+    @DisplayName("Testing if studentMapper is converting studentModel to studentDTO")
+    public void shouldConvertStudentModelToStudentDTO()
     {
         String studentName = "Javid Sadigli", studentGender = "male"; 
         Long studentId = 1L; 
@@ -38,8 +38,8 @@ public class StudentMapperTests
     }
 
     @Test
-    @DisplayName("Testing if studentMapper is converting studentDTO to studentEntity")
-    public void shouldConvertStudentDTOToStudentEntity()
+    @DisplayName("Testing if studentMapper is converting studentDTO to studentModel")
+    public void shouldConvertStudentDTOToStudentModel()
     {
         String studentName = "Javid Sadigli", studentGender = "male"; 
         Long studentId = 1L; 
@@ -55,8 +55,8 @@ public class StudentMapperTests
     }
 
     @Test
-    @DisplayName("Testing if studentMapper is converting null studentEntity to null studentDTO")
-    public void shouldConvertNullStudentEntityToNullStudentDTO()
+    @DisplayName("Testing if studentMapper is converting null studentModel to null studentDTO")
+    public void shouldConvertNullStudentModelToNullStudentDTO()
     {
         StudentAPIModel studentAPIModel = null;
         StudentDTO studentDTO = this.studentMapper.toStudentDTO(studentAPIModel);
@@ -64,8 +64,8 @@ public class StudentMapperTests
     }
 
     @Test
-    @DisplayName("Testing if studentMapper is converting null studentDTO to null studentEntity")
-    public void shouldConvertNullStudentDTOToNullStudentEntity()
+    @DisplayName("Testing if studentMapper is converting null studentDTO to null studentModel")
+    public void shouldConvertNullStudentDTOToNullStudentModel()
     {
         StudentDTO studentDTO = null;
         StudentAPIModel studentAPIModel = this.studentMapper.toStudentAPIModel(studentDTO);
