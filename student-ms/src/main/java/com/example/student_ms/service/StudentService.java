@@ -2,8 +2,8 @@ package com.example.student_ms.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
 import com.example.student_ms.api.feignclient.StudentAPI;
+import com.example.student_ms.api.models.StudentAPIModel;
 import com.example.student_ms.dto.StudentDTO;
 import com.example.student_ms.mapper.StudentMapper;
 
@@ -22,22 +22,22 @@ public class StudentService
     public StudentDTO getStudentById(Long studentId)
     {
         if(studentId == null) return null; 
-        StudentAPIEntity studentAPIEntity = this.studentAPI.getStudentById(studentId);
-        return this.studentMapper.toStudentDTO(studentAPIEntity);
+        StudentAPIModel studentAPIModel = this.studentAPI.getStudentById(studentId);
+        return this.studentMapper.toStudentDTO(studentAPIModel);
     }
     
     public StudentDTO saveStudent(StudentDTO student)
     {
-        StudentAPIEntity studentAPIEntity = this.studentMapper.toStudentAPIEntity(student);
-        StudentAPIEntity savedStudent = this.studentAPI.saveStudent(studentAPIEntity); 
+        StudentAPIModel studentAPIModel = this.studentMapper.toStudentAPIModel(student);
+        StudentAPIModel savedStudent = this.studentAPI.saveStudent(studentAPIModel); 
         return this.studentMapper.toStudentDTO(savedStudent);
     }
 
     public StudentDTO saveStudent(StudentDTO student, Long id)
     {
         if(id == null || student == null) return null; 
-        StudentAPIEntity studentAPIEntity = this.studentMapper.toStudentAPIEntity(student);
-        StudentAPIEntity savedStudent = this.studentAPI.updateStudentById(id, studentAPIEntity); 
+        StudentAPIModel studentAPIModel = this.studentMapper.toStudentAPIModel(student);
+        StudentAPIModel savedStudent = this.studentAPI.updateStudentById(id, studentAPIModel); 
         return this.studentMapper.toStudentDTO(savedStudent);
     }
 

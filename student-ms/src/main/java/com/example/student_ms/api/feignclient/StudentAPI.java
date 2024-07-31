@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
+import com.example.student_ms.api.models.StudentAPIModel;
 
 @FeignClient(name = "adp-student-client", url = "${feign.client.url}")
 public interface StudentAPI 
 {
-    @GetMapping("/{id}") public StudentAPIEntity getStudentById(@PathVariable("id") Long id); 
-    @PostMapping("/") public StudentAPIEntity saveStudent(@RequestBody StudentAPIEntity student); 
-    @PutMapping("/{id}") public StudentAPIEntity updateStudentById(@PathVariable("id") Long id, @RequestBody StudentAPIEntity newStudent);
+    @GetMapping("/{id}") public StudentAPIModel getStudentById(@PathVariable("id") Long id); 
+    @PostMapping("/") public StudentAPIModel saveStudent(@RequestBody StudentAPIModel student); 
+    @PutMapping("/{id}") public StudentAPIModel updateStudentById(@PathVariable("id") Long id, @RequestBody StudentAPIModel newStudent);
     @DeleteMapping("/{id}") public void deleteStudentById(@PathVariable("id") Long id);
 }

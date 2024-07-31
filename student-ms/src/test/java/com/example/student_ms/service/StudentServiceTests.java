@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
 import com.example.student_ms.api.feignclient.StudentAPI;
+import com.example.student_ms.api.models.StudentAPIModel;
 import com.example.student_ms.dto.StudentDTO;
 import com.example.student_ms.mapper.StudentMapper;
 
@@ -41,11 +41,11 @@ public class StudentServiceTests
         Long studentId = 1L; 
         String studentName = "Javid Sadigli", studentGender = "male"; 
 
-        StudentAPIEntity studentAPIEntity = new StudentAPIEntity(studentId, studentName, studentGender);
+        StudentAPIModel studentAPIModel = new StudentAPIModel(studentId, studentName, studentGender);
         StudentDTO studentDTO = new StudentDTO(studentId, studentName, studentGender);
 
-        when(this.studentAPI.getStudentById(studentId)).thenReturn(studentAPIEntity); 
-        when(this.studentMapper.toStudentDTO(studentAPIEntity)).thenReturn(studentDTO); 
+        when(this.studentAPI.getStudentById(studentId)).thenReturn(studentAPIModel); 
+        when(this.studentMapper.toStudentDTO(studentAPIModel)).thenReturn(studentDTO); 
 
         StudentDTO checkFoundStudentDTO = this.studentService.getStudentById(studentId); 
         
@@ -62,14 +62,14 @@ public class StudentServiceTests
         Long studentId = 1L; 
         String studentName = "Javid Sadigli", studentGender = "male"; 
 
-        StudentAPIEntity studentAPIEntity = new StudentAPIEntity(studentName, studentGender);
-        StudentAPIEntity savedStudentAPIEntity = new StudentAPIEntity(studentId, studentName, studentGender);
+        StudentAPIModel studentAPIModel = new StudentAPIModel(studentName, studentGender);
+        StudentAPIModel savedstudentAPIModel = new StudentAPIModel(studentId, studentName, studentGender);
         StudentDTO studentDTO = new StudentDTO(studentName, studentGender);
         StudentDTO savedStudentDTO = new StudentDTO(studentId, studentName, studentGender);
 
-        when(this.studentMapper.toStudentAPIEntity(studentDTO)).thenReturn(studentAPIEntity); 
-        when(this.studentAPI.saveStudent(studentAPIEntity)).thenReturn(savedStudentAPIEntity);
-        when(this.studentMapper.toStudentDTO(savedStudentAPIEntity)).thenReturn(savedStudentDTO);
+        when(this.studentMapper.toStudentAPIModel(studentDTO)).thenReturn(studentAPIModel); 
+        when(this.studentAPI.saveStudent(studentAPIModel)).thenReturn(savedstudentAPIModel);
+        when(this.studentMapper.toStudentDTO(savedstudentAPIModel)).thenReturn(savedStudentDTO);
 
         StudentDTO checkStudentDTO = this.studentService.saveStudent(studentDTO);
         
@@ -87,13 +87,13 @@ public class StudentServiceTests
         String studentName = "Javid Sadigli", studentGender = "male"; 
 
         StudentDTO studentDTO = new StudentDTO(studentName, studentGender);
-        StudentAPIEntity studentAPIEntity = new StudentAPIEntity(studentName, studentGender);
-        StudentAPIEntity savedStudentAPIEntity = new StudentAPIEntity(studentId, studentName, studentGender);
+        StudentAPIModel studentAPIModel = new StudentAPIModel(studentName, studentGender);
+        StudentAPIModel savedstudentAPIModel = new StudentAPIModel(studentId, studentName, studentGender);
         StudentDTO savedStudentDTO = new StudentDTO(studentId, studentName, studentGender); 
 
-        when(this.studentMapper.toStudentAPIEntity(studentDTO)).thenReturn(studentAPIEntity); 
-        when(this.studentAPI.updateStudentById(studentId, studentAPIEntity)).thenReturn(savedStudentAPIEntity); 
-        when(this.studentMapper.toStudentDTO(savedStudentAPIEntity)).thenReturn(savedStudentDTO); 
+        when(this.studentMapper.toStudentAPIModel(studentDTO)).thenReturn(studentAPIModel); 
+        when(this.studentAPI.updateStudentById(studentId, studentAPIModel)).thenReturn(savedstudentAPIModel); 
+        when(this.studentMapper.toStudentDTO(savedstudentAPIModel)).thenReturn(savedStudentDTO); 
 
         StudentDTO checkStudentDTO = this.studentService.saveStudent(studentDTO, studentId); 
 

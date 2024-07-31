@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
+import com.example.student_ms.api.models.StudentAPIModel;
 import com.example.student_ms.dto.StudentDTO;
 
 public class StudentMapperTests 
@@ -27,9 +27,9 @@ public class StudentMapperTests
     {
         String studentName = "Javid Sadigli", studentGender = "male"; 
         Long studentId = 1L; 
-        StudentAPIEntity studentEntity = new StudentAPIEntity(studentId, studentName, studentGender);
+        StudentAPIModel studentAPIModel = new StudentAPIModel(studentId, studentName, studentGender);
 
-        StudentDTO studentDTO = this.studentMapper.toStudentDTO(studentEntity); 
+        StudentDTO studentDTO = this.studentMapper.toStudentDTO(studentAPIModel); 
 
         assertNotNull(studentDTO);
         assertEquals(studentName, studentDTO.getName());
@@ -46,20 +46,20 @@ public class StudentMapperTests
 
         StudentDTO studentDTO = new StudentDTO(studentId, studentName, studentGender);
         
-        StudentAPIEntity studentEntity = this.studentMapper.toStudentAPIEntity(studentDTO);
+        StudentAPIModel studentAPIModel = this.studentMapper.toStudentAPIModel(studentDTO);
 
-        assertNotNull(studentEntity);
-        assertEquals(studentName, studentEntity.getName());
-        assertEquals(studentGender, studentEntity.getGender());
-        assertEquals(studentId, studentEntity.getId());
+        assertNotNull(studentAPIModel);
+        assertEquals(studentName, studentAPIModel.getName());
+        assertEquals(studentGender, studentAPIModel.getGender());
+        assertEquals(studentId, studentAPIModel.getId());
     }
 
     @Test
     @DisplayName("Testing if studentMapper is converting null studentEntity to null studentDTO")
     public void shouldConvertNullStudentEntityToNullStudentDTO()
     {
-        StudentAPIEntity studentEntity = null;
-        StudentDTO studentDTO = this.studentMapper.toStudentDTO(studentEntity);
+        StudentAPIModel studentAPIModel = null;
+        StudentDTO studentDTO = this.studentMapper.toStudentDTO(studentAPIModel);
         assertNull(studentDTO);
     }
 
@@ -68,7 +68,7 @@ public class StudentMapperTests
     public void shouldConvertNullStudentDTOToNullStudentEntity()
     {
         StudentDTO studentDTO = null;
-        StudentAPIEntity studentEntity = this.studentMapper.toStudentAPIEntity(studentDTO);
-        assertNull(studentEntity);
+        StudentAPIModel studentAPIModel = this.studentMapper.toStudentAPIModel(studentDTO);
+        assertNull(studentAPIModel);
     }
 }

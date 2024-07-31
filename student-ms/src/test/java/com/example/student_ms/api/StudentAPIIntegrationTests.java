@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
 import com.example.student_ms.api.feignclient.StudentAPI;
+import com.example.student_ms.api.models.StudentAPIModel;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
@@ -50,13 +50,13 @@ public class StudentAPIIntegrationTests
             )
         ));
 
-        StudentAPIEntity checkStudentEntity = this.studentAPI.getStudentById(studentId); 
+        StudentAPIModel checkStudentModel = this.studentAPI.getStudentById(studentId); 
 
-        assertNotNull(checkStudentEntity);
-        assertEquals(studentId, checkStudentEntity.getId());
-        assertEquals(studentName, checkStudentEntity.getName());
-        assertEquals(studentGender, checkStudentEntity.getGender());
-        assertEquals(studentEmail, checkStudentEntity.getEmail());
-        assertEquals(studentPassword, checkStudentEntity.getPassword());
+        assertNotNull(checkStudentModel);
+        assertEquals(studentId, checkStudentModel.getId());
+        assertEquals(studentName, checkStudentModel.getName());
+        assertEquals(studentGender, checkStudentModel.getGender());
+        assertEquals(studentEmail, checkStudentModel.getEmail());
+        assertEquals(studentPassword, checkStudentModel.getPassword());
     }
 }

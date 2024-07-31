@@ -2,20 +2,20 @@ package com.example.student_ms.mapper;
 
 import org.springframework.stereotype.Service;
 
-import com.example.student_ms.api.entity.StudentAPIEntity;
+import com.example.student_ms.api.models.StudentAPIModel;
 import com.example.student_ms.dto.StudentDTO;
 
 @Service
 public class StudentMapper 
 {
-    public StudentDTO toStudentDTO(StudentAPIEntity studentAPIEntity)
+    public StudentDTO toStudentDTO(StudentAPIModel studentAPIModel)
     {
         try
         {
             return new StudentDTO(
-                studentAPIEntity.getId(),
-                studentAPIEntity.getName(),
-                studentAPIEntity.getGender()
+                studentAPIModel.getId(),
+                studentAPIModel.getName(),
+                studentAPIModel.getGender()
             );
         }
         catch(NullPointerException e)
@@ -24,11 +24,11 @@ public class StudentMapper
         }
     }
 
-    public StudentAPIEntity toStudentAPIEntity(StudentDTO studentDTO)
+    public StudentAPIModel toStudentAPIModel(StudentDTO studentDTO)
     {
         try
         {
-            return new StudentAPIEntity(
+            return new StudentAPIModel(
                 studentDTO.getId(),
                 studentDTO.getName(),
                 studentDTO.getGender()

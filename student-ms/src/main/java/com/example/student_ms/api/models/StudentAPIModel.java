@@ -1,6 +1,6 @@
-package com.example.student_ms.api.entity;
+package com.example.student_ms.api.models;
 
-public class StudentAPIEntity 
+public class StudentAPIModel 
 {
     private Long id;
     private String name;
@@ -9,9 +9,9 @@ public class StudentAPIEntity
     private String password; 
 
 
-    public StudentAPIEntity() {}
+    public StudentAPIModel() {}
 
-    public StudentAPIEntity(Long id, String name, String gender, String email, String password) 
+    public StudentAPIModel(Long id, String name, String gender, String email, String password) 
     {
         this.id = id;
         this.name = name;
@@ -20,7 +20,7 @@ public class StudentAPIEntity
         this.password = password;
     }
 
-    public StudentAPIEntity(String name, String gender, String email, String password) 
+    public StudentAPIModel(String name, String gender, String email, String password) 
     {
         this.name = name;
         this.gender = gender;
@@ -28,14 +28,14 @@ public class StudentAPIEntity
         this.password = password;
     }
 
-    public StudentAPIEntity(Long id, String name, String gender) 
+    public StudentAPIModel(Long id, String name, String gender) 
     {
         this.id = id;
         this.name = name;
         this.gender = gender;
     }
 
-    public StudentAPIEntity(String name, String gender) 
+    public StudentAPIModel(String name, String gender) 
     {
         this.name = name;
         this.gender = gender;
