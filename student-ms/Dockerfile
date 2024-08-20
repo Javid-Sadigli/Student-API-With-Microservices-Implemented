@@ -1,6 +1,11 @@
 FROM openjdk:17-jdk-slim
-VOLUME /tmp
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
-EXPOSE 8080:8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+COPY gradlew /app/gradlew
+COPY gradle /app/gradle
+COPY build.gradle /app/build.gradle
+COPY settings.gradle /app/settings.gradle
+COPY src /app/src
+RUN chmod +x ./gradlew
+RUN ./gradlew build --no-daemon
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/build/libs/your-app.jar"]
